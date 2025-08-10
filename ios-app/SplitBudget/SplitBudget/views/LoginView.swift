@@ -99,26 +99,8 @@ struct LoginView: View {
                 
                 // Boutons de connexion sociale
                 VStack(spacing: 12) {
-                    // Bouton Google
-                    Button(action: signInWithGoogle) {
-                        HStack(spacing: 12) {
-                            Image(systemName: "globe")
-                                .foregroundColor(.red)
-                                .font(.title3)
-                            Text("Continuer avec Google")
-                                .fontWeight(.medium)
-                                .foregroundColor(.primary)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(.systemGray4), lineWidth: 1)
-                        )
-                    }
-                    .disabled(isLoading)
+                    // Bouton Google - Version simple et fiable
+                    SimpleGoogleButton(action: signInWithGoogle, isLoading: isLoading)
                     
                     // Note informative
                     Text("💡 Connexion rapide et sécurisée avec Google")
