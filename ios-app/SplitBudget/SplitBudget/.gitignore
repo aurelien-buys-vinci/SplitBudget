@@ -54,5 +54,8 @@ playground.xcworkspace
 # macOS
 .DS_Store
 
+# Firebase
+GoogleService-Info.plist
+
 # SPM Xcode integration
 .swiftpm/xcode/package.xcworkspace/
