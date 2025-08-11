@@ -100,7 +100,7 @@ struct LoginView: View {
                 // Boutons de connexion sociale
                 VStack(spacing: 12) {
                     // Bouton Google - Version simple et fiable
-                    SimpleGoogleButton(action: signInWithGoogle, isLoading: isLoading)
+					GoogleSignInButton(action: signInWithGoogle, isLoading: isLoading)
                     
                     // Note informative
                     Text("💡 Connexion rapide et sécurisée avec Google")
