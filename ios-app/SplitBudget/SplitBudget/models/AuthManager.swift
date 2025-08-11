@@ -16,13 +16,22 @@ class AuthManager: ObservableObject {
     @Published var user: User?
     @Published var isAuthenticated = false
     
+    private var authStateListener: AuthStateDidChangeListenerHandle?
+    
     init() {
         // Écouter les changements d'état d'authentification
-        Auth.auth().addStateDidChangeListener { [weak self] _, user in
+        authStateListener = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             DispatchQueue.main.async {
                 self?.user = user
                 self?.isAuthenticated = user != nil
             }
+        }
+    }
+    
+    deinit {
+        // Supprimer le listener quand l'objet est détruit
+        if let listener = authStateListener {
+            Auth.auth().removeStateDidChangeListener(listener)
         }
     }
     
