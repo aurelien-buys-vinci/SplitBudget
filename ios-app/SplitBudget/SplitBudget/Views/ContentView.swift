@@ -12,6 +12,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var authManager: AuthManager
     @Query private var items: [Item]
+    @State private var showingProfile = false
 
     var body: some View {
         NavigationSplitView {
@@ -27,8 +28,8 @@ struct ContentView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: signOut) {
-                        Label("Déconnexion", systemImage: "rectangle.portrait.and.arrow.right")
+                    Button(action: { showingProfile = true }) {
+                        Label("Profil", systemImage: "person.circle")
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -39,6 +40,10 @@ struct ContentView: View {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
+            }
+            .sheet(isPresented: $showingProfile) {
+                UserProfileView()
+                    .environmentObject(authManager)
             }
         } detail: {
             Text("Select an item")
@@ -59,17 +64,11 @@ struct ContentView: View {
             }
         }
     }
-    
-    private func signOut() {
-        do {
-            try authManager.signOut()
-        } catch {
-            print("Erreur lors de la déconnexion: \(error.localizedDescription)")
-        }
-    }
 }
+
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: [Item.self, UserModel.self], inMemory: true)
+        .environmentObject(AuthManager())
 }

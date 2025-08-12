@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 import Firebase
 import FirebaseAuth
+import FirebaseFirestore
 import GoogleSignIn
 
 @main
@@ -30,6 +31,7 @@ struct SplitBudgetApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
+            UserModel.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
